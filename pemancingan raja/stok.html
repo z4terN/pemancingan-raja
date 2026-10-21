@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kelola Stok Ikan - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      /* --- TEMA UTAMA DISESUAIKAN DENGAN DASHBOARD ADMIN --- */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .stok-section {
+        padding: 12rem 4% 4rem 4%;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      .stok-container {
+        max-width: 100rem;
+        margin: 0 auto;
+      }
+
+      .stok-container h2 {
+        font-size: 3rem;
+        color: #1f3160;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn-back {
+        background: #64748b;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 0.6rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2.5rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .btn-back:hover {
+        background: #475569;
+      }
+
+      /* KOTAK BLOK MATRIKS */
+      .stok-card-block {
+        background: #fff;
+        padding: 3.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0.5rem 2.5rem rgba(0, 0, 0, 0.04);
+        margin-bottom: 3rem;
+      }
+
+      .stok-card-block h3 {
+        margin: 0 0 2rem 0;
+        font-size: 2rem;
+        color: #1f3160;
+        font-weight: 600;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 1rem;
+      }
+
+      /* STRUKTUR TABEL */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 1.4rem;
+      }
+
+      .admin-table th {
+        background: #f8fafc;
+        padding: 1.5rem;
+        color: #475569;
+        font-weight: 600;
+        border-bottom: 2px solid #e2e8f0;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+      }
+
+      .admin-table td {
+        padding: 1.6rem 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+      }
+
+      .badge-sistem {
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 0.3rem 0.8rem;
+        border-radius: 0.4rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+      }
+
+      /* --- FORM LAYOUT --- */
+      .form-inline-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        gap: 2rem;
+        align-items: flex-end;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .form-group label {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #475569;
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.6rem;
+        font-size: 1.4rem;
+        font-family: inherit;
+        box-sizing: border-box;
+      }
+
+      .btn-submit {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.6rem;
+        font-size: 1.4rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 4.2rem;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <header
+      style="
+        background: #1f3160;
+        padding: 2rem 5%;
+        color: #fff;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        box-sizing: border-box;
+        z-index: 1000;
+      "
+    >
+      <h1 style="margin: 0; font-size: 2.2rem">
+        Sistem Manajemen Gudang Logistik
+      </h1>
+    </header>
+
+    <section class="stok-section">
+      <div class="stok-container">
+        <button
+          class="btn-back"
+          onclick="window.location.href = 'dashboard-pengelola.html'"
+        >
+          <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+        <h2><i class="fas fa-boxes"></i> Gudang Logistik Stok Ikan</h2>
+        <p style="color: #64748b; font-size: 1.4rem; margin-bottom: 3rem">
+          Pantau ketersediaan kapasitas ikan kolam dan lakukan perubahan data
+          secara real-time.
+        </p>
+
+        <div class="stok-card-block">
+          <h3><i class="fas fa-table"></i> Tabel Kondisi Stok Saat Ini</h3>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Kategori Paket Kolam</th>
+                  <th>ID Sistem</th>
+                  <th>Jumlah Kapasitas Stok</th>
+                  <th>Status Gudang</th>
+                </tr>
+              </thead>
+              <tbody id="bodyTabelStok"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="stok-card-block">
+          <h3><i class="fas fa-edit"></i> Form Penyesuaian / Update Stok</h3>
+
+          <div class="form-inline-grid">
+            <div class="form-group">
+              <label for="selectSistemIkan">Pilih Sistem Kolam:</label>
+              <select id="selectSistemIkan">
+                <option value="harian">Mancing Harian (Gabrukan)</option>
+                <option value="kiloan-bawal">Kiloan - Ikan Bawal</option>
+                <option value="kiloan-mas">Kiloan - Ikan Mas</option>
+                <option value="kiloan-lele">Kiloan - Ikan Lele</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="selectAksiStok">Jenis Tindakan:</label>
+              <select id="selectAksiStok">
+                <option value="tambah">➕ Tambah Stok Masuk</option>
+                <option value="kurang">➖ Kurangi Stok Keluar</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputJumlahKg">Berat Ikan (Kg):</label>
+              <input
+                type="number"
+                id="inputJumlahKg"
+                min="1"
+                value="5"
+                placeholder="Contoh: 10"
+              />
+            </div>
+
+            <button
+              class="btn-submit"
+              style="background: #10b981"
+              onclick="eksekusiUpdateStok()"
+            >
+              <i class="fas fa-save"></i> Perbarui Stok
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Database default gudang pusat
+      const defaultStok = {
+        harian: 150,
+        "kiloan-bawal": 100,
+        "kiloan-mas": 120,
+        "kiloan-lele": 200,
+      };
+
+      const labelSistem = {
+        harian: "Mancing Harian (Gabrukan)",
+        "kiloan-bawal": "Kiloan - Ikan Bawal",
+        "kiloan-mas": "Kiloan - Ikan Mas",
+        "kiloan-lele": "Kiloan - Ikan Lele",
+      };
+
+      function ambilDataStokPusat() {
+        let stokSekarang = localStorage.getItem("db_stok_ikan_raja");
+        if (!stokSekarang) {
+          localStorage.setItem(
+            "db_stok_ikan_raja",
+            JSON.stringify(defaultStok),
+          );
+          return defaultStok;
+        }
+        return JSON.parse(stokSekarang);
+      }
+
+      // --- LOGIKA HITUNG PENGURANGAN OTOMATIS DARI TRANSAKSI LUNAS ---
+      function hitungStokBersihTerpotongLunas() {
+        let dataStokAsli = ambilDataStokPusat();
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        // Loop data pendaftaran untuk mencari transaksi yang sudah Lunas
+        dbPendaftaran.forEach((item) => {
+          if (
+            item.status === "Lunas" &&
+            item.beratIkan &&
+            item.sistem !== "harian"
+          ) {
+            let beratAngka = parseFloat(item.beratIkan);
+            if (!isNaN(beratAngka) && dataStokAsli[item.sistem] !== undefined) {
+              // Potong stok ikan berjalan langsung di tabel web
+              dataStokAsli[item.sistem] -= beratAngka;
+              // Mencegah nilai stok menjadi minus di tampilan layar
+              if (dataStokAsli[item.sistem] < 0) dataStokAsli[item.sistem] = 0;
+            }
+          }
+        });
+
+        return dataStokAsli;
+      }
+
+      // RENDER STRUKTUR TABEL ATAS BERDASARKAN HITUNGAN REAL-TIME
+      function renderTabelStok() {
+        const tbody = document.getElementById("bodyTabelStok");
+        // Gunakan fungsi hitung pengurangan otomatis dari transaksi Lunas
+        const dataStokTampil = hitungStokBersihTerpotongLunas();
+        tbody.innerHTML = "";
+
+        let nomor = 1;
+        Object.keys(dataStokTampil).forEach((sistemKey) => {
+          let namaKolam = labelSistem[sistemKey] || sistemKey;
+          let jumlahStok = dataStokTampil[sistemKey];
+
+          // Deteksi alert status ketersediaan gudang
+          let statusLabel = "";
+          if (jumlahStok <= 20) {
+            statusLabel = `<span style="color:#ef4444; font-weight:bold; background:#fee2e2; padding:0.3rem 0.8rem; border-radius:0.4rem;">Hampir Habis!</span>`;
+          } else {
+            statusLabel = `<span style="color:#16a34a; font-weight:bold; background:#dcfce7; padding:0.3rem 0.8rem; border-radius:0.4rem;">Aman (Tersedia)</span>`;
+          }
+
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${nomor++}</td>
+            <td><strong>${namaKolam}</strong></td>
+            <td><span class="badge-sistem">${sistemKey}</span></td>
+            <td><strong style="color:#2563eb; font-size:1.6rem;">${jumlahStok.toFixed(1)} Kg</strong></td>
+            <td>${statusLabel}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // LOGIKA TOMBOL FORM SUBMIT DI BAWAH
+      function eksekusiUpdateStok() {
+        let sistemKey = document.getElementById("selectSistemIkan").value;
+        let aksi = document.getElementById("selectAksiStok").value;
+        let jumlahInput = parseFloat(
+          document.getElementById("inputJumlahKg").value,
+        );
+
+        if (isNaN(jumlahInput) || jumlahInput <= 0) {
+          alert("Masukkan jumlah Kg ikan yang valid Pak!");
+          return;
+        }
+
+        let dataStok = ambilDataStokPusat();
+
+        if (aksi === "tambah") {
+          dataStok[sistemKey] += jumlahInput;
+          alert(
+            `Berhasil menambah pasokan ${jumlahInput} Kg ke ${labelSistem[sistemKey]}.`,
+          );
+        } else if (aksi === "kurang") {
+          if (dataStok[sistemKey] - jumlahInput < 0) {
+            alert(
+              `Gagal! Stok gudang induk sisa ${dataStok[sistemKey]} Kg, tidak cukup.`,
+            );
+            return;
+          }
+          dataStok[sistemKey] -= jumlahInput;
+          alert(
+            `Berhasil memotong ${jumlahInput} Kg dari ${labelSistem[sistemKey]}.`,
+          );
+        }
+
+        localStorage.setItem("db_stok_ikan_raja", JSON.stringify(dataStok));
+
+        // Reset field input biar bersih kembali ke 5 Kg
+        document.getElementById("inputJumlahKg").value = "5";
+
+        // Refresh data tabel otomatis
+        renderTabelStok();
+      }
+
+      // Selalu update tabel jika ada perubahan data kasir secara langsung
+      window.addEventListener("storage", function (e) {
+        if (
+          e.key === "db_pendaftaran_mancing" ||
+          e.key === "db_stok_ikan_raja"
+        ) {
+          renderTabelStok();
+        }
+      });
+
+      // Jalankan render awal
+      renderTabelStok();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Pengelola - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      /* --- TEMA UTAMA DASHBOARD PENGELOLA / ADMIN --- */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .admin-section {
+        padding: 12rem 4% 4rem 4%;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      .admin-container {
+        max-width: 120rem;
+        margin: 0 auto;
+      }
+
+      .admin-container h2 {
+        font-size: 3rem;
+        color: #1f3160;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* PANEL DATA ATAS (BEBAS DARI KOTAK VERIFIKASI - BERSIH 4 KOLOM) */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+        gap: 2rem;
+        margin-bottom: 3.5rem;
+      }
+
+      .stat-card {
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 1.2rem;
+        box-shadow: 0 0.4rem 1.5rem rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .stat-info h4 {
+        margin: 0;
+        font-size: 1.4rem;
+        color: #6b7280;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+      }
+
+      .stat-info p {
+        margin: 0.5rem 0 0 0;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #1f3160;
+      }
+
+      .stat-icon {
+        width: 5.5rem;
+        height: 5.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+      }
+
+      /* KOTAK ANTRIAN UTAMA */
+      .admin-card-table {
+        background: #fff;
+        padding: 3.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0.5rem 2.5rem rgba(0, 0, 0, 0.04);
+        margin-bottom: 4rem;
+      }
+
+      .admin-card-table h3 {
+        margin: 0 0 2.5rem 0;
+        font-size: 2rem;
+        color: #1f3160;
+        font-weight: 600;
+      }
+
+      /* STRUKTUR TABEL MODERN */
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 1.4rem;
+      }
+
+      .admin-table th {
+        background: #f8fafc;
+        padding: 1.5rem;
+        color: #475569;
+        font-weight: 600;
+        border-bottom: 2px solid #e2e8f0;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        letter-spacing: 0.03rem;
+      }
+
+      .admin-table td {
+        padding: 1.6rem 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+        vertical-align: middle;
+      }
+
+      .admin-table tr:hover {
+        background: #f8fafc;
+      }
+
+      /* TOMBOL DESAIN ACTION BAR */
+      .btn-action {
+        padding: 0.7rem 1.4rem;
+        border: none;
+        border-radius: 0.6rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        color: #fff;
+      }
+
+      .btn-timbang {
+        background: #f59e0b;
+      }
+      .btn-timbang:hover {
+        background: #d97706;
+      }
+
+      .btn-lunas {
+        background: #10b981;
+      }
+      .btn-lunas:hover {
+        background: #059669;
+      }
+
+      .btn-set-status {
+        background: #3b82f6;
+      }
+      .btn-set-status:hover {
+        background: #1d4ed8;
+      }
+
+      .btn-offline {
+        background: #2563eb;
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+        border-radius: 0.8rem;
+        margin-bottom: 2.5rem;
+      }
+      .btn-offline:hover {
+        background: #1d4ed8;
+      }
+
+      .badge-sistem {
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 0.3rem 0.8rem;
+        border-radius: 0.4rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+      }
+
+      /* MODAL STYLE POPUP */
+      .modal-layover {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-box {
+        background: #fff;
+        padding: 3rem;
+        border-radius: 1.2rem;
+        width: 100%;
+        max-width: 45rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+        box-sizing: border-box;
+      }
+
+      .modal-box h3 {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: #1f3160;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 0.6rem;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.6rem;
+        font-size: 1.4rem;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header
+      class="header-nav"
+      style="
+        background: #1f3160;
+        padding: 2rem 5%;
+        color: #fff;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        box-sizing: border-box;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      "
+    >
+      <h1 style="margin: 0; font-size: 2.2rem">Sistem Manajemen Admin Pool</h1>
+      <button
+        onclick="window.location.href = 'masuk.html'"
+        style="
+          background: rgba(255, 255, 255, 0.15);
+          border: none;
+          color: #fff;
+          padding: 0.8rem 1.6rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          font-weight: 600;
+        "
+      >
+        Keluar Admin
+      </button>
+    </header>
+
+    <section class="admin-section">
+      <div class="admin-container">
+        <h2><i class="fas fa-tasks"></i> Dashboard Pemantauan Kolam</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <h4>Total Pendaftar</h4>
+              <p id="statTotal">0</p>
+            </div>
+            <div class="stat-icon" style="background: #e0e7ff; color: #4f46e5">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <h4>Menunggu Ditimbang</h4>
+              <p id="statTimbang">0</p>
+            </div>
+            <div class="stat-icon" style="background: #fef3c7; color: #d97706">
+              <i class="fas fa-weight"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <h4>Belum Bayar</h4>
+              <p id="statBayar">0</p>
+            </div>
+            <div class="stat-icon" style="background: #fee2e2; color: #dc2626">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <h4>Lunas / Selesai</h4>
+              <p id="statLunas">0</p>
+            </div>
+            <div class="stat-icon" style="background: #dcfce7; color: #16a34a">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card-table">
+          <button
+            class="btn-action btn-offline"
+            onclick="bukaModalPendaftaran()"
+          >
+            <i class="fas fa-user-plus"></i> Daftar Pemancing Baru (Offline /
+            Cash)
+          </button>
+
+          <button
+            class="btn-action"
+            style="
+              background: #4f46e5;
+              padding: 1rem 2rem;
+              font-size: 1.4rem;
+              border-radius: 0.8rem;
+              margin-bottom: 2.5rem;
+              margin-left: 0.5rem;
+            "
+            onclick="window.location.href = 'stok.html'"
+          >
+            <i class="fas fa-fish"></i> Kelola Stok Ikan Kolam
+          </button>
+
+          <h3>Daftar Antrean & Tagihan Pemancing</h3>
+
+          <div style="margin-bottom: 2rem; max-width: 40rem">
+            <input
+              type="text"
+              id="searchAdmin"
+              placeholder="🔍 Cari nama pelanggan atau sistem kolam..."
+              style="
+                width: 100%;
+                padding: 0.8rem 1.2rem;
+                border: 1px solid #ced4da;
+                border-radius: 0.5rem;
+                font-size: 1.4rem;
+                box-sizing: border-box;
+              "
+              oninput="renderTabelAdmin()"
+            />
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Pemancing</th>
+                  <th>Sistem Kolam</th>
+                  <th>Waktu Daftar</th>
+                  <th>Berat Ikan</th>
+                  <th>Total Tagihan</th>
+                  <th>Status Transaksi</th>
+                  <th style="text-align: center">Tindakan / Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="bodyTabelAdmin"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal-layover" id="modalPendaftaranOffline">
+      <div class="modal-box">
+        <h3><i class="fas fa-user-plus"></i> Pendaftaran Pemancing</h3>
+        <div class="form-group">
+          <label for="inputNamaOffline">Nama Lengkap Pemancing:</label>
+          <input
+            type="text"
+            id="inputNamaOffline"
+            placeholder="Contoh: Pak Budi"
+          />
+        </div>
+        <div class="form-group">
+          <label for="selectSistemOffline">Pilih Kategori Paket Kolam:</label>
+          <select id="selectSistemOffline">
+            <option value="harian">Mancing Harian Gabrukan (Rp 50.000)</option>
+            <option value="kiloan-bawal">
+              Kiloan - Ikan Bawal (Rp 35.000/Kg)
+            </option>
+            <option value="kiloan-mas">Kiloan - Ikan Mas (Rp 45.000/Kg)</option>
+            <option value="kiloan-lele">
+              Kiloan - Ikan Lele (Rp 25.000/Kg)
+            </option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button
+            class="btn-action"
+            style="background: #64748b"
+            onclick="tutupModalPendaftaran()"
+          >
+            Batal
+          </button>
+          <button
+            class="btn-action"
+            style="background: #10b981"
+            onclick="simpanPendaftaranOffline()"
+          >
+            Simpan Data
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-layover" id="modalTimbangIkan">
+      <div class="modal-box">
+        <h3><i class="fas fa-weight"></i> Input Timbangan Hasil</h3>
+        <input type="hidden" id="indexPemancingTimbang" value="" />
+        <div class="form-group">
+          <label>Nama Pemancing:</label>
+          <input
+            type="text"
+            id="displayNamaTimbang"
+            readonly
+            style="background: #f1f5f9; font-weight: bold"
+          />
+        </div>
+        <div class="form-group">
+          <label>Sistem Kategori:</label>
+          <input
+            type="text"
+            id="displaySistemTimbang"
+            readonly
+            style="background: #f1f5f9; text-transform: uppercase"
+          />
+        </div>
+        <div class="form-group" id="groupInputBerat">
+          <label for="inputBeratIkan">Berat Total Tangkapan (Kg):</label>
+          <input
+            type="number"
+            id="inputBeratIkan"
+            step="0.1"
+            min="0.1"
+            value="1.0"
+          />
+        </div>
+        <div class="modal-actions">
+          <button
+            class="btn-action"
+            style="background: #64748b"
+            onclick="tutupModalTimbang()"
+          >
+            Batal
+          </button>
+          <button
+            class="btn-action"
+            style="background: #f59e0b"
+            onclick="simpanHasilTimbangan()"
+          >
+            Proses Masuk Tagihan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function hitungStatistik() {
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        document.getElementById("statTotal").innerText = dbPendaftaran.length;
+
+        let jmlTimbang = dbPendaftaran.filter(
+          (item) => item.status === "Belum Ditimbang",
+        ).length;
+        document.getElementById("statTimbang").innerText = jmlTimbang;
+
+        let jmlBayar = dbPendaftaran.filter(
+          (item) =>
+            item.status === "Belum Bayar" ||
+            item.status === "Sedang Diverifikasi Pembayaran" ||
+            item.status === "Proses",
+        ).length;
+        document.getElementById("statBayar").innerText = jmlBayar;
+
+        let jmlLunas = dbPendaftaran.filter(
+          (item) => item.status === "Lunas",
+        ).length;
+        document.getElementById("statLunas").innerText = jmlLunas;
+      }
+
+      function renderTabelAdmin() {
+        const tbody = document.getElementById("bodyTabelAdmin");
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        const kataKunci = document.getElementById("searchAdmin")
+          ? document.getElementById("searchAdmin").value.toLowerCase().trim()
+          : "";
+
+        tbody.innerHTML = "";
+
+        if (dbPendaftaran.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#999;">Belum ada data pendaftaran masuk.</td></tr>`;
+          hitungStatistik();
+          return;
+        }
+
+        let barisDibuat = 0;
+
+        for (let i = dbPendaftaran.length - 1; i >= 0; i--) {
+          let item = dbPendaftaran[i];
+
+          if (kataKunci !== "") {
+            let namaUser = (item.nama || "").toLowerCase();
+            let tipeSistem = (item.sistem || "").toLowerCase();
+            let statusNota = (item.status || "").toLowerCase();
+
+            if (
+              !namaUser.includes(kataKunci) &&
+              !tipeSistem.includes(kataKunci) &&
+              !statusNota.includes(kataKunci)
+            ) {
+              continue;
+            }
+          }
+
+          barisDibuat++;
+
+          let penandaStatus = "";
+          let tombolAksi = "";
+
+          // --- LOGIKA ALUR REVISI TOTAL (AKURAT SAMA SEPERTI GAMBAR) ---
+          if (item.status === "Belum Ditimbang") {
+            penandaStatus = `<span style="color:#d97706; font-weight:bold; background:#fef3c7; padding:0.3rem 0.8rem; border-radius:0.4rem;">Timbang Ikan</span>`;
+            tombolAksi = `<button class="btn-action btn-timbang" onclick="bukaModalTimbang(${i})"><i class="fas fa-weight"></i> Timbang</button>`;
+          } else if (item.status === "Belum Bayar") {
+            penandaStatus = `<span style="color:#ef4444; font-weight:bold; background:#fee2e2; padding:0.3rem 0.8rem; border-radius:0.4rem;">Belum Bayar</span>`;
+            tombolAksi = `<button class="btn-action btn-lunas" onclick="setelStatusLunasManual(${i})"><i class="fas fa-check"></i> Set Lunas</button>`;
+          } else if (item.status === "Sedang Diverifikasi Pembayaran") {
+            // TAHAP 1: KETIKA DI AKUN USER SEDANG DIVERIFIKASI -> STATUS TRANSAKSI DI SINI ADALAH DIVERIFIKASI
+            penandaStatus = `<span style="color:#2563eb; font-weight:bold; background:#e0f2fe; padding:0.3rem 0.8rem; border-radius:0.4rem;"><i class="fas fa-clock"></i> Diverifikasi</span>`;
+            // TOMBOLNYA ADALAH "SET STATUS"
+            tombolAksi = `<button class="btn-action btn-set-status" onclick="ubahKeStatusProses(${i})"><i class="fas fa-tasks"></i> Set Status</button>`;
+          } else if (item.status === "Proses") {
+            // TAHAP 2: SETELAH DI "SET STATUS", MAKA STATUS TRANSAKSI DI SINI BERUBAH JADI PROSES
+            penandaStatus = `<span style="color:#6366f1; font-weight:bold; background:#e0e7ff; padding:0.3rem 0.8rem; border-radius:0.4rem;"><i class="fas fa-spinner fa-spin"></i> Proses</span>`;
+            // DAN TOMBOL AKSINYA SEKARANG ADALAH "SET LUNAS"
+            tombolAksi = `<button class="btn-action btn-lunas" onclick="setelStatusLunasManual(${i})"><i class="fas fa-check-double"></i> Set Lunas</button>`;
+          } else {
+            // TAHAP AKHIR: SETELAH KLIK "SET LUNAS", BARULAH STATUSNYA MENJADI LUNAS/SELESAI DAN TINDAKAN JADI SELESAI
+            penandaStatus = `<span style="color:#16a34a; font-weight:bold; background:#dcfce7; padding:0.3rem 0.8rem; border-radius:0.4rem;">Lunas / Selesai</span>`;
+            tombolAksi = `<span style="color:#6b7280; font-size:1.2rem; font-weight:600;"><i class="fas fa-check-double"></i> Selesai</span>`;
+          }
+
+          let tampilBerat = item.beratIkan || "-";
+          let tampilBayar = item.totalBayar
+            ? "Rp " + parseInt(item.totalBayar).toLocaleString("id-ID")
+            : "-";
+
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td><strong>${item.nama}</strong></td>
+            <td><span class="badge-sistem">${item.sistem}</span></td>
+            <td>${item.tanggalMancing || item.waktuPendaftaran || "-"}</td>
+            <td><strong style="color:#2563eb;">${tampilBerat}</strong></td>
+            <td><strong style="color:#16a34a;">${tampilBayar}</strong></td>
+            <td>${penandaStatus}</td>
+            <td>
+              <div style="display:flex; gap:0.5rem; justify-content:center; align-items:center;">
+                ${tombolAksi}
+                <button class="btn-action" style="background:#ef4444;" onclick="hapusDataReservasi(${i})"><i class="fas fa-trash"></i></button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+
+        if (barisDibuat === 0 && kataKunci !== "") {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#999; padding: 2rem;">Data pelanggan tidak ditemukan.</td></tr>`;
+        }
+
+        hitungStatistik();
+      }
+
+      // AKSI TAHAP 1: MENGUBAH DIVERIFIKASI MENJADI "Proses"
+      function ubahKeStatusProses(index) {
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        if (
+          confirm(
+            `Ubah status transaksi "${dbPendaftaran[index].nama}" menjadi "Proses"?`,
+          )
+        ) {
+          dbPendaftaran[index].status = "Proses"; // DISET PROSES AGAR COCOK DI IF ATAS DAN DI AKUN.HTML
+          localStorage.setItem(
+            "db_pendaftaran_mancing",
+            JSON.stringify(dbPendaftaran),
+          );
+          alert(
+            "Status diperbarui menjadi Proses! Sekarang Anda bisa menekan tombol Set Lunas.",
+          );
+          renderTabelAdmin();
+        }
+      }
+
+      // AKSI TAHAP 2: MENGUBAH STATUS MENJADI FINAL "Lunas"
+      function setelStatusLunasManual(index) {
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        if (
+          confirm(
+            `Apakah Anda yakin ingin menyatakan LUNAS untuk pembayaran "${dbPendaftaran[index].nama}"?`,
+          )
+        ) {
+          dbPendaftaran[index].status = "Lunas"; // DISET LUNAS UNTUK SINKRONISASI AKHIR
+          localStorage.setItem(
+            "db_pendaftaran_mancing",
+            JSON.stringify(dbPendaftaran),
+          );
+          alert("Transaksi berhasil dinyatakan LUNAS!");
+          renderTabelAdmin();
+        }
+      }
+
+      // --- POPUP LOGIK TIMBANGAN ---
+      function bukaModalTimbang(index) {
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+        let pemancing = dbPendaftaran[index];
+
+        document.getElementById("indexPemancingTimbang").value = index;
+        document.getElementById("displayNamaTimbang").value = pemancing.nama;
+        document.getElementById("displaySistemTimbang").value =
+          pemancing.sistem;
+        document.getElementById("inputBeratIkan").value = "1.0";
+
+        if (pemancing.sistem === "harian") {
+          document.getElementById("groupInputBerat").style.display = "none";
+        } else {
+          document.getElementById("groupInputBerat").style.display = "block";
+        }
+
+        document.getElementById("modalTimbangIkan").style.display = "flex";
+      }
+
+      function tutupModalTimbang() {
+        document.getElementById("modalTimbangIkan").style.display = "none";
+      }
+
+      function simpanHasilTimbangan() {
+        let index = parseInt(
+          document.getElementById("indexPemancingTimbang").value,
+        );
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+        let pemancing = dbPendaftaran[index];
+
+        let beratTampil = "-";
+        let totalTagihan = 0;
+
+        if (pemancing.sistem !== "harian") {
+          let inputBerat = document.getElementById("inputBeratIkan").value;
+          let beratAngka = parseFloat(inputBerat);
+
+          if (isNaN(beratAngka) || beratAngka <= 0) {
+            alert("Input berat tidak valid!");
+            return;
+          }
+
+          beratTampil = beratAngka + " Kg";
+
+          if (pemancing.sistem === "kiloan-bawal")
+            totalTagihan = beratAngka * 35000;
+          else if (pemancing.sistem === "kiloan-mas")
+            totalTagihan = beratAngka * 45000;
+          else if (pemancing.sistem === "kiloan-lele")
+            totalTagihan = beratAngka * 25000;
+          else totalTagihan = beratAngka * 35000;
+        } else {
+          totalTagihan = 50000;
+          beratTampil = "-";
+        }
+
+        dbPendaftaran[index].beratIkan = beratTampil;
+        dbPendaftaran[index].totalBayar = totalTagihan;
+        dbPendaftaran[index].status = "Belum Bayar";
+
+        localStorage.setItem(
+          "db_pendaftaran_mancing",
+          JSON.stringify(dbPendaftaran),
+        );
+
+        tutupModalTimbang();
+        alert(`Berhasil menyimpan data timbangan untuk ${pemancing.nama}!`);
+        renderTabelAdmin();
+      }
+
+      // --- LOGIKA FORM MODAL POP-UP PENDAFTARAN OFFLINE ---
+      function bukaModalPendaftaran() {
+        document.getElementById("inputNamaOffline").value = "";
+        document.getElementById("selectSistemOffline").selectedIndex = 0;
+        document.getElementById("modalPendaftaranOffline").style.display =
+          "flex";
+      }
+
+      function tutupModalPendaftaran() {
+        document.getElementById("modalPendaftaranOffline").style.display =
+          "none";
+      }
+
+      function simpanPendaftaranOffline() {
+        let namaInput = document.getElementById("inputNamaOffline").value;
+        let sistemSelect = document.getElementById("selectSistemOffline").value;
+
+        if (!namaInput.trim()) {
+          alert("Nama pemancing tidak boleh kosong Pak!");
+          return;
+        }
+
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        dbPendaftaran.push({
+          nama: namaInput.trim(),
+          tanggalMancing: new Date().toLocaleDateString("id-ID"),
+          waktuPendaftaran: new Date().toLocaleString("id-ID"),
+          sistem: sistemSelect,
+          status: "Belum Ditimbang",
+        });
+
+        localStorage.setItem(
+          "db_pendaftaran_mancing",
+          JSON.stringify(dbPendaftaran),
+        );
+
+        tutupModalPendaftaran();
+        alert(`Berhasil mendaftarkan ${namaInput} secara offline! ✨`);
+        renderTabelAdmin();
+      }
+
+      function hapusDataReservasi(index) {
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+        if (confirm("Hapus data ini?")) {
+          dbPendaftaran.splice(index, 1);
+          localStorage.setItem(
+            "db_pendaftaran_mancing",
+            JSON.stringify(dbPendaftaran),
+          );
+          renderTabelAdmin();
+        }
+      }
+
+      window.addEventListener("storage", function (e) {
+        if (e.key === "db_pendaftaran_mancing") {
+          renderTabelAdmin();
+        }
+      });
+
+      renderTabelAdmin();
+    </script>
+  </body>
+</html>

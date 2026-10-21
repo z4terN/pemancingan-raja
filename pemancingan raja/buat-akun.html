@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buat Akun - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      /* Style khusus tambahan untuk halaman formulir agar rapi dan responsif */
+      .form-container {
+        max-width: 50rem;
+        margin: 4rem auto;
+        background: #fff;
+        padding: 4rem;
+        border-radius: 2rem;
+        box-shadow: 0 0.8rem 2.5rem rgba(0, 0, 0, 0.05);
+      }
+
+      .form-container h2 {
+        font-size: 3rem;
+        color: var(--black);
+        font-weight: 800;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 2rem;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 1.6rem;
+        color: var(--light-color);
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 1.5rem;
+        font-size: 1.6rem;
+        background: #f7f9fa;
+        border: 1px solid #e1e8ed;
+        border-radius: 1rem;
+        color: var(--black);
+        text-transform: none; /* Biar ngetik email/password ga otomatis kapital */
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--blue);
+        background: #fff;
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 1.5rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: var(--black);
+        color: #fff;
+        border-radius: 5rem;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+
+      .btn-submit:hover {
+        background: var(--blue);
+      }
+
+      .form-footer {
+        text-align: center;
+        margin-top: 2.5rem;
+        font-size: 1.5rem;
+        color: var(--light-color);
+      }
+
+      .form-footer a {
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 1.6rem;
+        color: var(--light-color);
+        margin-bottom: 2rem;
+        font-weight: 600;
+      }
+
+      .btn-back:hover {
+        color: var(--blue);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" name="" id="toggler" />
+      <label for="toggler" class="fas fa-bars"></label>
+      <a href="index.html" class="logo">Pemancingan Raja</a>
+      <nav class="navbar">
+        <a href="index.html#Sistem">Sistem</a>
+        <a href="index.html#Lokasi">Lokasi</a>
+        <a href="index.html#Ulasan">Ulasan</a>
+      </nav>
+      <div class="icons">
+        <a href="#" class="fa fa-history"></a>
+        <a href="#" class="fa fa-user"></a>
+      </div>
+    </header>
+
+    <section class="home" id="buat-akun">
+      <div class="content">
+        <a href="index.html" class="btn-back">
+          <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </a>
+
+        <div class="form-container">
+          <h2>Buat Akun</h2>
+
+          <form id="formBuatAkun">
+            <div class="form-group">
+              <label for="nama">Nama Pengguna</label>
+              <input
+                type="text"
+                id="nama"
+                placeholder="Masukkan nama pengguna"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="wa">Nomor WhatsApp</label>
+              <input
+                type="text"
+                id="wa"
+                placeholder="Contoh: 081234567xxx"
+                required
+                pattern="[0-9]+"
+                oninvalid="
+                  this.setCustomValidity('Tolong masukkan nomor yang benar')
+                "
+                oninput="this.setCustomValidity('')"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Kata Sandi (Password)</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Buat kata sandi akun Anda"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn-submit">Daftar Akun Baru</button>
+          </form>
+
+          <div class="form-footer">
+            Sudah punya akun? <a href="masuk.html">Masuk di sini</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-container">
+        <img src="assets/img/fish.png" alt="" />
+      </div>
+    </section>
+
+    <script>
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const namaUser = document.getElementById("nama").value.trim();
+        const waUser = document.getElementById("wa").value.trim();
+        const passwordUser = document.getElementById("password").value.trim();
+
+        // Ambil database user lama dari browser
+        let databaseUser =
+          JSON.parse(localStorage.getItem("db_users_pemancingan")) || [];
+
+        // VALIDASI: Cek apakah nama atau nomor WA sudah pernah didaftarkan
+        const apakahNamaAda = databaseUser.some(
+          (user) => user.nama.toLowerCase() === namaUser.toLowerCase(),
+        );
+        const apakahWaAda = databaseUser.some(
+          (user) => user.whatsapp === waUser,
+        );
+
+        if (apakahNamaAda) {
+          alert(
+            "Gagal! Nama pengguna ini sudah terdaftar. Gunakan nama lain ya Pak.",
+          );
+          return;
+        }
+        if (apakahWaAda) {
+          alert("Gagal! Nomor WhatsApp ini sudah terdaftar di sistem.");
+          return;
+        }
+
+        // BUNGKUS DATA KE JSON DICT (Disamakan menggunakan kata 'whatsapp')
+        const userBaru = {
+          nama: namaUser,
+          whatsapp: waUser,
+          role: "pelanggan",
+          password: passwordUser,
+          waktu_terdaftar: new Date().toLocaleString("id-ID"),
+        };
+
+        // Masukkan ke database dan simpan kembali ke memori browser
+        databaseUser.push(userBaru);
+        localStorage.setItem(
+          "db_users_pemancingan",
+          JSON.stringify(databaseUser),
+        );
+
+        alert("Selamat! Akun pelanggan Anda berhasil dibuat. Silakan masuk.");
+        form.reset();
+        window.location.href = "masuk.html";
+      });
+    </script>
+  </body>
+</html>

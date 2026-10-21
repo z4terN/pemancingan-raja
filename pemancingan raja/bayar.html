@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembayaran Gateway - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      .payment-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f7f9fc;
+        padding: 12rem 5% 4rem 5%;
+        box-sizing: border-box;
+      }
+
+      .payment-container {
+        background: #fff;
+        padding: 4rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.06);
+        width: 100%;
+        max-width: 55rem;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .payment-container h2 {
+        font-size: 2.4rem;
+        color: #1f3160;
+        margin-bottom: 1.5rem;
+      }
+
+      .qr-code-box {
+        background: #f8fafc;
+        padding: 2rem;
+        border: 2px dashed #cbd5e1;
+        border-radius: 1rem;
+        display: inline-block;
+        margin: 2rem 0;
+      }
+
+      .qr-code-box img {
+        width: 200px;
+        height: 200px;
+        display: block;
+      }
+
+      .countdown-wrapper {
+        background: #fee2e2;
+        color: #ef4444;
+        padding: 1rem;
+        border-radius: 0.6rem;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .btn-payment {
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        border-radius: 0.6rem;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        transition: 0.2s;
+      }
+
+      .btn-confirm {
+        background: #10b981;
+        color: #fff;
+      }
+
+      .btn-confirm:hover {
+        background: #059669;
+      }
+
+      .btn-cancel {
+        background: #64748b;
+        color: #fff;
+      }
+
+      .btn-cancel:hover {
+        background: #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="payment-section">
+      <div class="payment-container">
+        <h2><i class="fas fa-qrcode"></i> Gateway Pembayaran QRIS</h2>
+        <p style="font-size: 1.4rem; color: #64748b">
+          Silakan pindai kode QRIS di bawah ini melalui aplikasi M-Banking atau
+          E-Wallet Anda.
+        </p>
+
+        <div class="qr-code-box">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PemancinganRaja"
+            alt="QRIS Code"
+          />
+        </div>
+
+        <div style="font-size: 1.8rem; margin-bottom: 2rem; color: #334155">
+          Total Tagihan:
+          <strong id="textTotalBayar" style="color: #10b981">Rp 0</strong>
+        </div>
+
+        <div class="countdown-wrapper">
+          Sisa Waktu Pembayaran: <span id="countdownTimer">00:00</span>
+        </div>
+
+        <button
+          class="btn-payment btn-confirm"
+          onclick="konfirmasiPembayaranOtomatis()"
+        >
+          <i class="fas fa-check-circle"></i> Saya Sudah Bayar
+        </button>
+        <button class="btn-payment btn-cancel" onclick="batalBayar()">
+          Batal / Kembali
+        </button>
+      </div>
+    </section>
+
+    <script>
+      // Ambil ID nota dari parameter URL (?id=...)
+      const urlParams = new URLSearchParams(window.location.search);
+      const idTerpilih = parseInt(urlParams.get("id"));
+
+      let dbPendaftaran =
+        JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+      if (isNaN(idTerpilih) || !dbPendaftaran[idTerpilih]) {
+        alert("Data transaksi tidak valid!");
+        window.location.href = "akun.html";
+      }
+
+      // Ambil info nota data
+      let nota = dbPendaftaran[idTerpilih];
+      let nominal = nota.totalBayar
+        ? parseInt(nota.totalBayar)
+        : nota.sistem === "harian"
+          ? 50000
+          : 0;
+      document.getElementById("textTotalBayar").innerText =
+        "Rp " + nominal.toLocaleString("id-ID");
+
+      // LOGIKA TIMER COUNTDOWN (15 MENIT)
+      const timerKey = "timer_bayar_" + idTerpilih;
+      let targetWaktu = localStorage.getItem(timerKey);
+
+      if (!targetWaktu) {
+        targetWaktu = new Date().getTime() + 15 * 60 * 1000; // 15 Menit dari sekarang
+        localStorage.setItem(timerKey, targetWaktu);
+      } else {
+        targetWaktu = parseInt(targetWaktu);
+      }
+
+      let x = setInterval(function () {
+        let sekarang = new Date().getTime();
+        let selisih = targetWaktu - sekarang;
+
+        let menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+        let detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+        menit = menit < 10 ? "0" + menit : menit;
+        detik = detik < 10 ? "0" + detik : detik;
+
+        document.getElementById("countdownTimer").innerHTML =
+          menit + ":" + detik;
+
+        if (selisih < 0) {
+          clearInterval(x);
+          localStorage.removeItem(timerKey);
+          document.getElementById("countdownTimer").innerHTML = "EXPIRED";
+          alert(
+            "Waktu pembayaran telah habis Pak! Silakan lakukan proses ulang.",
+          );
+          window.location.href = "akun.html";
+        }
+      }, 1000);
+
+      function batalBayar() {
+        window.location.href = "akun.html";
+      }
+
+      // --- PERBAIKAN LOGIKA UTAMA: SETELAH KLIK DIARAHKAN KE VERIFIKASI ---
+      function konfirmasiPembayaranOtomatis() {
+        alert(
+          "Sistem sedang mengirim data bukti mutasi ke database admin... ⏳",
+        );
+
+        setTimeout(() => {
+          // GANTI STATUSNYA MENJADI SEDANG DIVERIFIKASI AGAR SINKRON DENGAN AKUN.HTML & DASHBOARD-PENGELOLA.HTML
+          dbPendaftaran[idTerpilih].status = "Sedang Diverifikasi Pembayaran";
+          localStorage.setItem(
+            "db_pendaftaran_mancing",
+            JSON.stringify(dbPendaftaran),
+          );
+
+          // Bersihkan data sisa timer transaksi ini
+          localStorage.removeItem(timerKey);
+
+          // Redirect kembali ke akun.html
+          window.location.href = "akun.html";
+        }, 1200);
+      }
+    </script>
+  </body>
+</html>

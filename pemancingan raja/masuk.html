@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk Akun - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      .login-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 100vh;
+        background: url("assets/img/bg.svg") no-repeat;
+        background-size: cover;
+        background-position: center;
+        gap: 4rem;
+        padding: 12rem 9% 4rem 9%;
+        box-sizing: border-box;
+      }
+
+      .login-content {
+        flex: 1 1 50rem;
+        text-align: left;
+      }
+
+      .login-content h2 {
+        font-size: 4.5rem;
+        color: #1f3160;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .login-content p {
+        font-size: 1.8rem;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .form-container {
+        max-width: 45rem;
+        width: 100%;
+        background: #fff;
+        padding: 3.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+      }
+
+      .form-container h3 {
+        font-size: 2.5rem;
+        color: #1f3160;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .form-container p {
+        font-size: 1.4rem;
+        color: #666;
+        margin-bottom: 2.5rem;
+        text-align: center;
+      }
+
+      .box-input-group {
+        position: relative;
+        margin-bottom: 2rem;
+        width: 100%;
+      }
+
+      .box-input-group label {
+        display: block;
+        font-size: 1.4rem;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        text-align: left;
+      }
+
+      .box-input-group input {
+        width: 100%;
+        padding: 1.3rem 1.5rem 1.3rem 4.5rem;
+        font-size: 1.5rem;
+        color: #333;
+        background: #f7f9fc;
+        border: 2px solid #e2e8f0;
+        border-radius: 0.8rem;
+        outline: none;
+        box-sizing: border-box;
+        transition: 0.2s;
+      }
+
+      .box-input-group input:focus {
+        border-color: #4643e8;
+        background: #fff;
+      }
+
+      .box-input-group i {
+        position: absolute;
+        left: 1.8rem;
+        bottom: 1.5rem;
+        font-size: 1.6rem;
+        color: #a0aec0;
+      }
+
+      .form-container .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1.4rem;
+        background: #4643e8;
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 700;
+        border-radius: 0.8rem;
+        text-decoration: none;
+        box-sizing: border-box;
+        transition: 0.3s;
+        margin-top: 1rem;
+        cursor: pointer;
+        border: none;
+      }
+
+      .form-container .btn:hover {
+        background: #332fd0;
+        box-shadow: 0 0.5rem 1.5rem rgba(70, 67, 232, 0.3);
+      }
+
+      .register-notice-text {
+        font-size: 1.4rem;
+        color: #666;
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .register-notice-text a {
+        color: #4643e8;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .register-notice-text a:hover {
+        text-decoration: underline;
+      }
+
+      /* KUNCI OTOMATIS RESPONSIF HP (Media Query di bawah 991px) */
+      @media (max-width: 991px) {
+        .login-section {
+          padding: 12rem 4% 4rem 4%;
+          flex-direction: column; /* Mengubah susunan menjadi ke bawah (Teks di atas, Form di bawah) */
+          justify-content: center;
+          align-items: center;
+          gap: 2.5rem;
+        }
+        .login-content {
+          text-align: center; /* Membuat teks rata tengah khusus di HP */
+          flex: none;
+          width: 100%;
+        }
+        .login-content h2 {
+          font-size: 3.2rem; /* Memperkecil sedikit ukuran font di HP agar pas */
+        }
+        .login-content p {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">Pemancingan Raja</a>
+      <nav class="navbar">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#layanan">Layanan</a>
+        <a href="index.html#galeri">Galeri</a>
+        <a href="index.html#tentang">Tentang Kami</a>
+      </nav>
+      <div class="icons">
+        <div class="fas fa-bars" id="menu-btn"></div>
+        <a href="masuk.html" class="fa fa-user" style="color: #4643e8"></a>
+      </div>
+    </header>
+
+    <section class="login-section">
+      <div class="login-content">
+        <h2>Selamat Datang di Pemancingan Raja</h2>
+        <p>
+          Nikmati pengalaman memancing terbaik dengan fasilitas lapak premium,
+          kolam ikan terlengkap, dan sistem pelayanan reservasi digital yang
+          mudah.
+        </p>
+      </div>
+
+      <div class="form-container">
+        <h3>Masuk Akun</h3>
+        <p>Silakan lengkapi data autentikasi Anda</p>
+
+        <form
+          onsubmit="
+            event.preventDefault();
+            prosesLogin(event);
+          "
+        >
+          <div class="box-input-group">
+            <label for="username">Nama Pengguna</label>
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              id="username"
+              placeholder="Masukkan nama pengguna..."
+              required
+            />
+          </div>
+
+          <div class="box-input-group">
+            <label for="password">Kata Sandi</label>
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan kata sandi..."
+              required
+            />
+          </div>
+
+          <a class="btn" onclick="prosesLogin(event)">Masuk Akun</a>
+
+          <p class="register-notice-text">
+            Belum punya akun?
+            <a href="buat-akun.html">Daftar Sekarang</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="share">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-instagram"></a>
+        <a href="#" class="fab fa-linkedin"></a>
+        <a href="#" class="fab fa-pinterest"></a>
+      </div>
+      <div class="credit">
+        Created by <span>Pemancingan Raja Team</span> | All Rights Reserved
+      </div>
+    </section>
+
+    <script>
+      const AKUN_PENGELOLA_DEFAULT = {
+        nama: "admin",
+        password: "raja",
+        role: "pengelola",
+      };
+
+      function suntikPengelolaOtomatis() {
+        let databaseUser =
+          JSON.parse(localStorage.getItem("db_users_pemancingan")) || [];
+        const apakahAda = databaseUser.some(
+          (user) =>
+            user.nama &&
+            user.nama.toLowerCase() ===
+              AKUN_PENGELOLA_DEFAULT.nama.toLowerCase(),
+        );
+
+        if (!apakahAda) {
+          databaseUser.push(AKUN_PENGELOLA_DEFAULT);
+          localStorage.setItem(
+            "db_users_pemancingan",
+            JSON.stringify(databaseUser),
+          );
+          console.log("Sistem: Akun pengelola berhasil disuntikkan otomatis!");
+        }
+      }
+
+      suntikPengelolaOtomatis();
+
+      function prosesLogin(e) {
+        if (e) e.preventDefault();
+
+        const usernameInput = document.getElementById("username").value.trim();
+        const passwordInput = document.getElementById("password").value.trim();
+
+        if (!usernameInput || !passwordInput) {
+          alert("Maaf Pak, Nama Pengguna dan Kata Sandi wajib diisi!");
+          return;
+        }
+
+        if (
+          usernameInput.toLowerCase() ===
+            AKUN_PENGELOLA_DEFAULT.nama.toLowerCase() &&
+          passwordInput === AKUN_PENGELOLA_DEFAULT.password
+        ) {
+          alert(
+            `Login Berhasil! Selamat datang Pengelola Pemancingan Raja. 🛠️`,
+          );
+          localStorage.setItem(
+            "sesi_login",
+            JSON.stringify(AKUN_PENGELOLA_DEFAULT),
+          );
+          window.location.href = "dashboard-pengelola.html";
+          return;
+        }
+
+        let databaseUser =
+          JSON.parse(localStorage.getItem("db_users_pemancingan")) || [];
+
+        const userDitemukan = databaseUser.find(
+          (user) =>
+            user.nama &&
+            user.nama.toLowerCase() === usernameInput.toLowerCase() &&
+            user.password === passwordInput,
+        );
+
+        if (userDitemukan) {
+          if (userDitemukan.role === "pengelola") {
+            alert(
+              `Login Berhasil! Selamat datang Pengelola ${userDitemukan.nama}. 🛠️`,
+            );
+            localStorage.setItem("sesi_login", JSON.stringify(userDitemukan));
+            window.location.href = "dashboard-pengelola.html";
+            return;
+          }
+
+          alert(
+            "Login Berhasil! Selamat datang " + userDitemukan.nama + ". ✨",
+          );
+          localStorage.setItem("sesi_login", JSON.stringify(userDitemukan));
+          window.location.href = "dashboard-pelanggan.html";
+        } else {
+          alert(
+            "Maaf Pak, Nama Pengguna atau Kata Sandi salah. Silakan periksa kembali!",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" name="" id="toggler" />
+      <label for="toggler" class="fas fa-bars"></label>
+
+      <a href="#" class="logo">Pemancingan Raja</a>
+
+      <nav class="navbar">
+        <a href="masuk.html">Masuk</a>
+        <a href="#Sistem">Sistem</a>
+        <a href="#Lokasi">Lokasi</a>
+        <a href="#Ulasan">Galeri</a>
+      </nav>
+
+      <div class="icons">
+        <a href="#" class="fa fa-history"></a>
+        <a href="#" class="fa fa-user"></a>
+      </div>
+    </header>
+
+    <section class="home" id="home">
+      <div class="content">
+        <h1>Pemancingan Raja</h1>
+        <span>Kurangi Pikiran, Banyakin Tarikan! 🎣</span>
+        <p>Sampeyan udah di website yang tepat!</p>
+        <p>
+          Bos q....Lgi Apaa Nihh....Kerjaan Lagi Numpuk...Kepala Pusing? Udah, Kita Rehat Dulu Ajaaa......Mancing Sini Enakk & Mantaap Bosss Q.... Ikannya Geudee🐟....Tarikannya Galak Mantaapp👍🏻.... Pokoknya Siap Tempurrr Sama Joran Anda Boss Q...!! 🎣💪🏻 Mari Merapat....Kita Silaturahmi Bos Q... Sekalian Kita Adu Nasib Di Pinggir Kolam🤭🤭....Ngopiii Jugaa☕ 👍Joss Boss Q👍👍👍
+          #Salam_Kopi_Hitam☕
+          #Teringat_Masa_Bujangq💪🏻
+        </p>
+        
+        <div class="home-buttons">
+          <a href="buat-akun.html" class="btn btn-buat">Buat Akun</a>
+          <a href="masuk.html" class="btn btn-masuk">Masuk Akun</a>
+        </div>
+      </div>
+
+      <div class="image-container">
+        <img src="assets/img/fish.png" alt="" />
+      </div>
+    </section>
+    <section class="sistem" id="Sistem">
+      <h2 class="heading-sistem">Sistem Pemancingan Raja</h2>
+
+      <div class="sistem-container">
+        <div class="sistem-box">
+          <h3>Sistem Harian :</h3>
+          <ul>
+            <li>Harian Gabrukan : Rp. 50.000</li>
+          <p>
+            Monggo Lur... Yang mau healing tipis-tipis biar otak gak konslet abis nyari duit seharian. Mancing sepuasnya dari pagi ketemu sore!! Kolamnya nyaman, anginnya sepoi-sepoi... Dijamin stres langsung ambyar!! 🎣 Jangan lupa modal kopi hitam biar makin syahdu... Gasss lah!! 😎👍
+          </p>
+          <img src="assets/img/hr.jpeg" alt="Kolam Harian" />
+        </div>
+
+        <div class="sistem-box">
+          <h3>Sistem Kiloan :</h3>
+          <ul>
+            <li>Kiloan Ikan Mas : Rp. 45.000/kg</li>
+            <li>Kiloan Ikan Bawal : Rp. 50.000/kg</li>
+            <li>Kiloan Ikan Lele : Rp. 25.000/kg</li>
+          </ul>
+          <img src="assets/img/bks.svg" alt="Kolam Kiloan" />
+        </div>
+      </div>
+
+
+    <section class="lokasi" id="Lokasi">
+      <h2 class="heading-lokasi">Lokasi Pemancingan Raja</h2>
+
+      <div class="lokasi-container">
+        <div class="lokasi-info">
+          <h3>Mari Merapat Ke Kolam! 🎣</h3>
+          <p>
+            Lokasinya gampang bgt dicari... Gak pake nyasar!! Parkirannya juga luas benerrr, muat banyak mobil ama motor... Aman dan nyaman pokoknya 👍👍 Silakan di-klik link map di bawah ini buat petunjuk jalan... Ditunggu kedatangannya mas bro... 📍🚗🏍️
+          </p>
+          <a
+            href="https://share.google/Ki7QQKdlwYcOhzcIo"
+            target="_blank"
+            class="btn btn-maps"
+          >
+            <i class="fas fa-map-marker-alt"></i> Buka Google Maps HP
+          </a>
+        </div>
+
+        <div class="maps">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.710612747937!2d106.99972907404236!3d-6.169490960457738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698b003f2bccf1%3A0x7fc141ee7f1af52c!2sPEMANCINGAN%20RAJA!5e0!3m2!1sen!2sid!4v1782674311194!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Otomatis membuat database kosong jika pertama kali dibuka di browser
+      if (localStorage.getItem('db_users_pemancingan') === null) {
+          localStorage.setItem('db_users_pemancingan', JSON.stringify([]));
+      }
+      if (localStorage.getItem('db_pendaftaran_mancing') === null) {
+          localStorage.setItem('db_pendaftaran_mancing', JSON.stringify([]));
+      }
+    </script>
+  </body>
+</html>

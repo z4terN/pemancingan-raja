@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Akun - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      /* STRUKTUR HALAMAN - DIPAKSA TOTAL DI TENGAH LAYAR */
+      .profile-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #fff;
+        padding: 12rem 5% 4rem 5%;
+        gap: 3rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* KOTAK CONTAINER FULL LEBAR MAKSIMAL */
+      .profile-container,
+      .billing-box-container {
+        background: #fff;
+        padding: 4.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 75rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      .profile-container {
+        text-align: center;
+      }
+
+      /* AVATAR & FOTO PROFIL */
+      .profile-container .avatar-wrapper {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 2rem auto;
+        cursor: pointer;
+      }
+
+      .profile-container img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .profile-container .camera-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #333;
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        border: 2px solid #fff;
+      }
+
+      .profile-container h3 {
+        font-size: 2.5rem;
+        color: var(--black);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+
+      .profile-container p {
+        font-size: 1.5rem;
+        color: #666;
+        margin-bottom: 2.5rem;
+      }
+
+      /* STYLE SEKAT UTAMA TIAP BLOK TRANSAKSI */
+      .billing-item-block {
+        border-bottom: 2px solid #f1f1f1;
+        padding-bottom: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .billing-item-block:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      /* TANGGAL MANCING UNTUK MASING-MASING NOTA */
+      .bill-date-text {
+        font-size: 1.4rem;
+        color: #555;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+
+      /* BARIS KONTEN TAGIHAN (KIRI KANAN) */
+      .info-item {
+        font-size: 1.6rem;
+        color: #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .info-item strong {
+        color: #1f3160;
+      }
+
+      /* KELOMPOK HARGA & TOMBOL DI SEBELAH KANAN */
+      .bill-action-group {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .bill-price-text {
+        font-size: 1.6rem;
+        color: #ff4d4d;
+        font-weight: 700;
+      }
+
+      /* JUDUL UTAMA CONTAINER TAGIHAN */
+      .billing-box-container h4 {
+        font-size: 2rem;
+        color: #1f3160;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        border-bottom: 3px solid #1f3160;
+        padding-bottom: 1rem;
+      }
+
+      .waiting-note {
+        font-size: 1.3rem;
+        color: #e67e22;
+        font-style: italic;
+        margin-top: 0.5rem;
+        display: block;
+        font-weight: 500;
+      }
+
+      .btn-pay-now {
+        background: #ff4d4d;
+        color: #fff;
+        border: none;
+        padding: 0.7rem 1.6rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .btn-pay-now:hover {
+        background: #e60000;
+      }
+
+      .status-lunas-text {
+        color: #2ecc71;
+        font-weight: 700;
+        font-size: 1.4rem;
+      }
+
+      /* TAMPILAN TEXT KHUSUS SEDANG DIVERIFIKASI / PROSES */
+      .status-proses-text {
+        color: #e67e22;
+        font-weight: 700;
+        font-size: 1.3rem;
+      }
+
+      .profile-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .btn-profile {
+        flex: 1;
+        padding: 1.2rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        border-radius: 5rem;
+        cursor: pointer;
+        text-align: center;
+        transition: 0.2s;
+        border: none;
+      }
+
+      .btn-sandi {
+        background: #f1f1f1;
+        color: #333;
+      }
+
+      .btn-sandi:hover {
+        background: #e0e0e0;
+      }
+
+      .btn-keluar {
+        background: #333;
+        color: #fff;
+      }
+
+      .btn-keluar:hover {
+        background: #4643e8;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" name="" id="toggler" />
+      <label for="toggler" class="fas fa-bars"></label>
+
+      <a href="dashboard-pelanggan.html" class="logo">Pemancingan Raja</a>
+
+      <nav class="navbar">
+        <a href="dashboard-pelanggan.html#Sistem">Sistem</a>
+        <a href="dashboard-pelanggan.html#Lokasi">Lokasi</a>
+        <a href="dashboard-pelanggan.html#Ulasan">Ulasan</a>
+      </nav>
+
+      <div class="icons">
+        <a href="#" class="fa fa-history"></a>
+        <a href="akun.html" class="fa fa-user" style="color: #4643e8"></a>
+      </div>
+    </header>
+
+    <section class="profile-section">
+      <div class="profile-container">
+        <div
+          class="avatar-wrapper"
+          onclick="document.getElementById('fileFoto').click()"
+        >
+          <img
+            id="imgProfil"
+            src="https://www.w3schools.com/howto/img_avatar.png"
+            alt="Avatar"
+          />
+          <div class="camera-icon"><i class="fas fa-camera"></i></div>
+          <input
+            type="file"
+            id="fileFoto"
+            accept="image/*"
+            style="display: none"
+          />
+        </div>
+
+        <h3 id="profileNama">Memuat...</h3>
+        <p>Anggota Resmi Pemancingan Raja</p>
+
+        <div style="text-align: left; margin-bottom: 3rem">
+          <div
+            style="
+              font-size: 1.6rem;
+              color: #333;
+              margin-bottom: 1.5rem;
+              border-bottom: 1px solid #f1f1f1;
+              padding-bottom: 0.8rem;
+              display: flex;
+              justify-content: space-between;
+            "
+          >
+            <span><strong>Nomor WhatsApp:</strong></span>
+            <span id="profileWA">08123456xxx</span>
+          </div>
+          <div
+            style="
+              font-size: 1.6rem;
+              color: #333;
+              display: flex;
+              justify-content: space-between;
+            "
+          >
+            <span><strong>Status Anggota:</strong></span>
+            <span>Pelanggan Aktif</span>
+          </div>
+        </div>
+
+        <div class="profile-buttons">
+          <button class="btn-profile btn-sandi" onclick="aksiUbahSandi()">
+            Ubah Sandi
+          </button>
+          <button class="btn-profile btn-keluar" onclick="prosesLogout()">
+            Keluar Akun
+          </button>
+        </div>
+      </div>
+
+      <div class="billing-box-container" id="kotakTagihanPusat">
+        <h4><i class="fas fa-wallet"></i> Tagihan</h4>
+
+        <div id="wadahTagihanMurni"></div>
+      </div>
+    </section>
+
+    <script>
+      // 1. CEK AUTENTIKASI AKSES
+      const sesi = JSON.parse(localStorage.getItem("sesi_login"));
+
+      if (!sesi || sesi.role !== "pelanggan") {
+        alert("Akses ditolak! Silakan masuk akun terlebih dahulu.");
+        window.location.href = "masuk.html";
+      } else {
+        document.getElementById("profileNama").innerText = sesi.nama;
+        document.getElementById("profileWA").innerText =
+          sesi.whatsapp || "0812345678";
+
+        const fotoLokal = localStorage.getItem(
+          "foto_" + sesi.nama.toLowerCase(),
+        );
+        if (fotoLokal) {
+          document.getElementById("imgProfil").src = fotoLokal;
+        }
+      }
+
+      // 2. PROSES UPLOAD FOTO PROFIL
+      document
+        .getElementById("fileFoto")
+        .addEventListener("change", function () {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const base64Gambar = e.target.result;
+              document.getElementById("imgProfil").src = base64Gambar;
+              localStorage.setItem(
+                "foto_" + sesi.nama.toLowerCase(),
+                base64Gambar,
+              );
+              alert("Foto profil berhasil diperbarui! 📸");
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // 3. LOGIKA RENDER DATA TAGIHAN (SINKRON DENGAN ADMIN PENGELOLA)
+      function renderTagihanLokal() {
+        const wadah = document.getElementById("wadahTagihanMurni");
+        const kotakTagihan = document.getElementById("kotakTagihanPusat");
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        let dataSaya = dbPendaftaran.filter(
+          (item) =>
+            item.nama && item.nama.toLowerCase() === sesi.nama.toLowerCase(),
+        );
+
+        if (dataSaya.length === 0) {
+          kotakTagihan.style.display = "none";
+          return;
+        } else {
+          kotakTagihan.style.display = "block";
+        }
+
+        let html = "";
+        let dataReverse = [...dataSaya].reverse();
+
+        dataReverse.forEach((nota, index) => {
+          let namaSistem = "";
+          let hargaTampil = "";
+          let noteTeks = "";
+
+          // AMBIL STATUS ASLI (Case Insensitive)
+          let statusNotaRaw = nota.status || "";
+          let isLunas = statusNotaRaw.toLowerCase() === "lunas";
+          let isSedangDiverifikasi =
+            statusNotaRaw === "Sedang Diverifikasi Pembayaran";
+          let isProsesKolam = statusNotaRaw === "Proses";
+          let isBelumDitimbang =
+            statusNotaRaw.toLowerCase() === "belum ditimbang";
+
+          let tanggalMurni = "Tanggal tidak diketahui";
+          if (nota.tanggalMancing) {
+            tanggalMurni = nota.tanggalMancing;
+          } else if (nota.waktuPendaftaran) {
+            if (nota.waktuPendaftaran.includes(",")) {
+              tanggalMurni = nota.waktuPendaftaran.split(",")[0].trim();
+            } else if (nota.waktuPendaftaran.includes(" ")) {
+              tanggalMurni = nota.waktuPendaftaran.split(" ")[0].trim();
+            } else {
+              tanggalMurni = nota.waktuPendaftaran;
+            }
+          }
+
+          // ATUR TEKS NAMA SISTEM KOLAM
+          if (nota.sistem === "harian") {
+            namaSistem = "Tagihan Harian";
+          } else if (nota.sistem === "kiloan-bawal") {
+            namaSistem = "Tagihan Kiloan (Bawal)";
+          } else if (nota.sistem === "kiloan-mas") {
+            namaSistem = "Tagihan Kiloan (Mas)";
+          } else {
+            namaSistem = "Tagihan Kiloan (Lele)";
+          }
+
+          // DINAMIS: Mengambil totalBayar asli dari database
+          if (isBelumDitimbang && nota.sistem !== "harian") {
+            hargaTampil = "Belum Ditimbang";
+            noteTeks =
+              '<span class="waiting-note">*Menunggu total hasil mancing</span>';
+          } else {
+            let nominal = nota.totalBayar
+              ? parseInt(nota.totalBayar)
+              : nota.sistem === "harian"
+                ? 50000
+                : 0;
+            hargaTampil = "Rp " + nominal.toLocaleString("id-ID");
+          }
+
+          // LOGIKA TOMBOL AKSI BERDASARKAN STATUS NYATA (SINKRON DENGAN ADMIN PENGELOLA)
+          let tombolAksi = "";
+          if (isLunas) {
+            tombolAksi =
+              '<span class="status-lunas-text" style="color:#2ecc71; font-weight:bold;">LUNAS</span>';
+          } else if (isSedangDiverifikasi) {
+            // JIKA STATUS DI DATABASE ADALAH "Sedang Diverifikasi Pembayaran"
+            tombolAksi =
+              '<span class="status-proses-text" style="color:#2563eb;"><i class="fas fa-spinner fa-spin"></i> Sedang Diverifikasi Pembayaran</span>';
+          } else if (isProsesKolam) {
+            // JIKA STATUS DI ADMIN BERUBAH MENJADI "Proses" SETELAH DI "SET STATUS"
+            tombolAksi =
+              '<span class="status-proses-text" style="color:#6366f1;"><i class="fas fa-spinner fa-spin"></i> PROSES</span>';
+          } else if (isBelumDitimbang && nota.sistem !== "harian") {
+            tombolAksi = `<button class="btn-pay-now" style="background: #ccc; cursor: not-allowed;" onclick="pemicuBayar('${namaSistem}', 'Belum Ditimbang', ${index})">Bayar</button>`;
+          } else {
+            tombolAksi = `<button class="btn-pay-now" onclick="pemicuBayar('${namaSistem}', '${hargaTampil}', ${index})">Bayar</button>`;
+          }
+
+          if (nota.beratIkan && nota.beratIkan !== "-") {
+            namaSistem += ` (${nota.beratIkan})`;
+          }
+
+          html += `
+            <div class="billing-item-block">
+              <div class="bill-date-text">
+                <i class="fas fa-calendar-alt"></i> Tanggal Mancing: ${tanggalMurni}
+              </div>
+              <div class="info-item">
+                <span>
+                  <strong>${namaSistem}</strong>
+                  ${noteTeks}
+                </span>
+                <div class="bill-action-group">
+                  <span class="bill-price-text">${hargaTampil}</span>
+                  <span>
+                    ${tombolAksi}
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        wadah.innerHTML = html;
+      }
+
+      // 4. LOGIKA PEMICU BAYAR
+      function pemicuBayar(sistem, harga, index) {
+        if (harga === "Belum Ditimbang") {
+          alert(
+            `Belum bisa bayar ya Pak, karena hasil pancingan ${sistem} belum ditimbang oleh petugas kolam.`,
+          );
+          return;
+        }
+
+        let dbPendaftaran =
+          JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+        let dataSaya = dbPendaftaran.filter(
+          (item) =>
+            item.nama && item.nama.toLowerCase() === sesi.nama.toLowerCase(),
+        );
+
+        let reversedData = [...dataSaya].reverse();
+        let itemTerpilih = reversedData[index];
+
+        if (!itemTerpilih) {
+          alert("Data transaksi tidak valid!");
+          return;
+        }
+
+        let indexAsli = dbPendaftaran.findIndex((item) => {
+          return (
+            item.nama &&
+            item.nama.toLowerCase() === itemTerpilih.nama.toLowerCase() &&
+            (item.waktuPendaftaran === itemTerpilih.waktuPendaftaran ||
+              item.tanggalMancing === itemTerpilih.tanggalMancing) &&
+            item.sistem === itemTerpilih.sistem
+          );
+        });
+
+        if (indexAsli !== -1) {
+          window.location.href = `bayar.html?id=${indexAsli}`;
+        } else {
+          alert("Gagal memproses pembayaran, data tidak sinkron di database.");
+        }
+      }
+
+      window.addEventListener("storage", function (e) {
+        if (e.key === "db_pendaftaran_mancing") {
+          renderTagihanLokal();
+        }
+      });
+
+      renderTagihanLokal();
+
+      // 5. FITUR UBAH SANDI AKUN
+      function aksiUbahSandi() {
+        const sandiBaru = prompt("Masukkan kata sandi baru Anda:");
+        if (sandiBaru) {
+          if (sandiBaru.trim().length < 4) {
+            alert("Kata sandi terlalu pendek! Minimal 4 karakter.");
+            return;
+          }
+
+          let databaseUser =
+            JSON.parse(localStorage.getItem("db_users_pemancingan")) || [];
+          const indexUser = databaseUser.findIndex(
+            (user) => user.nama.toLowerCase() === sesi.nama.toLowerCase(),
+          );
+
+          if (indexUser !== -1) {
+            databaseUser[indexUser].password = sandiBaru.trim();
+            localStorage.setItem(
+              "db_users_pemancingan",
+              JSON.stringify(databaseUser),
+            );
+            sesi.password = sandiBaru.trim();
+            localStorage.setItem("sesi_login", JSON.stringify(sesi));
+            alert("Kata sandi berhasil diperbarui.");
+          }
+        }
+      }
+
+      // 6. PROSES LOGOUT
+      function prosesLogout() {
+        if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
+          localStorage.removeItem("sesi_login");
+          window.location.href = "masuk.html";
+        }
+      }
+    </script>
+  </body>
+</html>

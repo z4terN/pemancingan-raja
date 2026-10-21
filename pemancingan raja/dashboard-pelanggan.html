@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Pelanggan - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      /* STYLE KHUSUS DASHBOARD */
+      .dashboard-welcome {
+        padding: 14rem 9% 4rem 9%;
+        background: #fff;
+        position: relative;
+        border-bottom: 1px solid #f1f1f1;
+      }
+
+      .dashboard-welcome h1 {
+        font-size: 4.5rem;
+        color: #1f3160;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .dashboard-welcome p {
+        font-size: 2.2rem;
+        color: #4643e8;
+        font-weight: 600;
+        text-transform: none;
+      }
+
+      /* Tombol daftar mancing */
+      .btn-daftar-mancing {
+        display: inline-block;
+        margin-top: 3rem;
+        border-radius: 5rem;
+        background: #333;
+        color: #fff;
+        padding: 1.5rem 4rem;
+        cursor: pointer;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-transform: lowercase; /* "daftar mancing" */
+      }
+
+      .btn-daftar-mancing:hover {
+        background-color: #4643e8;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" name="" id="toggler" />
+      <label for="toggler" class="fas fa-bars"></label>
+
+      <a href="#" class="logo">Pemancingan Raja</a>
+
+      <nav class="navbar">
+        <a href="#Sistem">Sistem</a>
+        <a href="#Lokasi">Lokasi</a>
+        <a href="#Ulasan">Ulasan</a>
+      </nav>
+
+      <div class="icons">
+        <a href="#" class="fa fa-history"></a>
+        <a
+          href="akun.html"
+          class="fa fa-user"
+          id="iconUser"
+          style="color: #4643e8"
+        ></a>
+      </div>
+    </header>
+
+    <section class="dashboard-welcome">
+      <h1 id="teksWelcome">Selamat Datang!</h1>
+      <p>
+        Siap adu nasib dan borong tarikan ikan sehat hari ini di Pemancingan
+        Raja? Ikannya udah nungguin, joran siap tempur!! MANTAP JOSS!! 🎣🐟
+      </p>
+    </section>
+
+    <section class="sistem" id="Sistem">
+      <h2 class="heading-sistem">Sistem Pemancingan Raja</h2>
+
+      <div class="sistem-container">
+        <div class="sistem-box">
+          <h3>Sistem Harian :</h3>
+          <ul>
+            <li>Harian Gabrukan : Rp. 50.000</li>
+          <p>
+            Monggo Lur... Yang mau healing tipis-tipis biar otak gak konslet abis nyari duit seharian. Mancing sepuasnya dari pagi ketemu sore!! Kolamnya nyaman, anginnya sepoi-sepoi... Dijamin stres langsung ambyar!! 🎣 Jangan lupa modal kopi hitam biar makin syahdu... Gasss lah!! 😎👍
+          </p>
+          <img src="assets/img/hr.jpeg" alt="Kolam Harian" />
+        </div>
+
+        <div class="sistem-box">
+          <h3>Sistem Kiloan :</h3>
+          <ul>
+            <li>Kiloan Ikan Mas : Rp. 45.000/kg</li>
+            <li>Kiloan Ikan Bawal : Rp. 50.000/kg</li>
+            <li>Kiloan Ikan Lele : Rp. 25.000/kg</li>
+          </ul>
+          <img src="assets/img/bks.svg" alt="Kolam Kiloan" />
+        </div>
+      </div>
+
+      <div style="text-align: left">
+        <button
+          class="btn-daftar-mancing"
+          onclick="window.location.href = 'daftar.html'"
+        >
+          daftar mancing
+        </button>
+      </div>
+    </section>
+
+    <section class="lokasi" id="Lokasi">
+      <h2 class="heading-lokasi">Lokasi Pemancingan Raja</h2>
+
+      <div class="lokasi-container">
+        <div class="lokasi-info">
+          <h3>Mari Merapat Ke Kolam! 🎣</h3>
+          <p>
+            Lokasinya gampang bgt dicari... Gak pake nyasar!! Parkirannya juga luas benerrr, muat banyak mobil ama motor... Aman dan nyaman pokoknya 👍👍 Silakan di-klik link map di bawah ini buat petunjuk jalan... Ditunggu kedatangannya mas bro... 📍🚗🏍️
+          </p>
+          <a
+            href="https://share.google/Ki7QQKdlwYcOhzcIo"
+            target="_blank"
+            class="btn btn-maps"
+          >
+            <i class="fas fa-map-marker-alt"></i> Buka Google Maps HP
+          </a>
+        </div>
+
+        <div class="maps">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.710612747937!2d106.99972907404236!3d-6.169490960457738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698b003f2bccf1%3A0x7fc141ee7f1af52c!2sPEMANCINGAN%20RAJA!5e0!3m2!1sen!2sid!4v1782674311194!5m2!1sen!2sid"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // CEK KEAMANAN AKSES (Harus Login)
+      const sesi = JSON.parse(localStorage.getItem("sesi_login"));
+      if (!sesi || sesi.role !== "pelanggan") {
+        alert("Akses ditolak! Silakan masuk akun terlebih dahulu.");
+        window.location.href = "masuk.html";
+      } else {
+        document.getElementById("teksWelcome").innerText =
+          `Selamat Datang, ${sesi.nama}!`;
+      }
+    </script>
+  </body>
+</html>

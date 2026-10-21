@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendaftaran Berhasil - Pemancingan Raja</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      .success-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f4f6f9;
+        padding-top: 10rem;
+        padding-bottom: 4rem;
+      }
+      .ticket-container {
+        background: #fff;
+        padding: 4rem;
+        border-radius: 2rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08);
+        width: 90%;
+        max-width: 55rem;
+        text-align: center;
+      }
+      .ticket-container h2 {
+        font-size: 2.8rem;
+        color: #2ecc71;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+      }
+      .ticket-container .subtitle {
+        font-size: 1.6rem;
+        color: #555;
+        margin-bottom: 3rem;
+      }
+      .ticket-details {
+        text-align: left;
+        font-size: 1.6rem;
+        color: #333;
+        background: #f8fafc;
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        margin-bottom: 2.5rem;
+        border: 2px dashed #e2e8f0;
+      }
+      .ticket-details .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 0.8rem;
+      }
+      .ticket-details .row:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .ticket-details strong {
+        color: #1f3160;
+        font-weight: 700;
+      }
+      .encouragement {
+        font-size: 1.8rem;
+        color: #ff4d4d;
+        font-weight: 800;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+      }
+      .btn-back {
+        display: inline-block;
+        padding: 1.4rem 3.5rem;
+        font-size: 1.6rem;
+        background: #1f3160;
+        color: #fff;
+        border-radius: 5rem;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+      .btn-back:hover {
+        background: #4643e8;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="dashboard-pelanggan.html" class="logo">Pemancingan Raja</a>
+    </header>
+
+    <section class="success-section">
+      <div class="ticket-container">
+        <h2><i class="fas fa-check-circle"></i> Pendaftaran Sukses!</h2>
+        <p class="subtitle">
+          Silakan langsung menuju kolam dan tunjukkan rincian ini kepada
+          petugas.
+        </p>
+
+        <div class="ticket-details">
+          <div class="row">
+            <strong>Nama Pelanggan:</strong>
+            <span id="resNama">-</span>
+          </div>
+          <div class="row">
+            <strong>No. WhatsApp:</strong>
+            <span id="resWa">-</span>
+          </div>
+          <div class="row">
+            <strong>Tanggal Mancing:</strong>
+            <span id="resTanggal">-</span>
+          </div>
+          <div class="row">
+            <strong>Sistem Ikan:</strong>
+            <span id="resSistem">-</span>
+          </div>
+        </div>
+
+        <p class="encouragement">
+          Semangat mancingnya! Semoga dapet tarikan ikan impian kalian hari ini
+          wkwk 🎣🔥
+        </p>
+
+        <a href="dashboard-pelanggan.html" class="btn-back"
+          >Kembali ke Dashboard</a
+        >
+      </div>
+    </section>
+
+    <script>
+      // 1. MENGAMBIL DATA TERAKHIR DARI DATABASE PENDAFTARAN LOKAL
+      let dbPendaftaran =
+        JSON.parse(localStorage.getItem("db_pendaftaran_mancing")) || [];
+
+      if (dbPendaftaran.length > 0) {
+        // Ambil array index paling terakhir (data yang baru saja disubmit)
+        let dataTerakhir = dbPendaftaran[dbPendaftaran.length - 1];
+
+        document.getElementById("resNama").innerText = dataTerakhir.nama;
+        document.getElementById("resWa").innerText = dataTerakhir.whatsapp;
+
+        // Mengubah format tanggal dari YYYY-MM-DD menjadi DD/MM/YYYY
+        let tglMurni = dataTerakhir.tanggalMancing || dataTerakhir.tanggal;
+        if (tglMurni) {
+          let infoTgl = tglMurni.split("-").reverse().join("/");
+          document.getElementById("resTanggal").innerText = infoTgl;
+        }
+
+        // Merapikan Teks Sistem Ikan
+        let sistemTeks = dataTerakhir.sistem;
+        if (sistemTeks === "harian") sistemTeks = "Harian Gabrukan";
+        if (sistemTeks === "kiloan-bawal") sistemTeks = "Kiloan Ikan Bawal";
+        if (sistemTeks === "kiloan-mas") sistemTeks = "Kiloan Ikan Mas";
+        if (sistemTeks === "kiloan-lele") sistemTeks = "Kiloan Ikan Lele";
+
+        document.getElementById("resSistem").innerText = sistemTeks;
+      } else {
+        // Jika tidak ada data, kembalikan user secara paksa agar tidak error
+        window.location.href = "dashboard-pelanggan.html";
+      }
+    </script>
+  </body>
+</html>
